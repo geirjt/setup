@@ -2,9 +2,19 @@
 # Simple setup.sh for configuring Ubuntu 12.04 LTS EC2 instance
 # for headless setup. 
 
+# Fix locale problem
+[ $(cat /etc/default/locale | grep -c LANGUAGE) -eq 0 ] && echo 'LANGUAGE="en_US.UTF-8"' >> /etc/default/locale
+[ $(cat /etc/default/locale | grep -c LC_ALL) -eq 0 ] && echo 'LC_ALL="en_US.UTF-8"' >> /etc/default/locale
+
+# Update system
+sudo apt-get update
+sudo apt-get upgrade -y
+
+# Install git
+sudo apt-get install -y git-core
+
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
-sudo apt-get install -y git-core
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
 
 # Load nvm and install latest production node
